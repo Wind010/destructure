@@ -28,9 +28,12 @@ list_of_dicts = destructor.destructure(data)
 Output:
 
 ```sh
-{'__name__': 'department', '__table__': {'name': 'Strategic Hazard Intervention Espionage Logistics Directorate': 'Fort Meade, Maryland, U.S. 39°6′32″N 76°46′17″W'}, '__id__': 'b3a0351cf4033d9484363bb6d4092d28', '__parent_id__': '5249f69db1e9a8a009e43f27596eacca'}
+{"__name__": "location", "__table__": ["Fort Meade, Maryland, U.S. 39°6'32'N 76°46"17"W, "Seattle, WA"], "__parent_id__": "1cd7de4b25fe5c1e134c5d3d43e2ec39", "__id__": "4b58bb58656974d2bec3258ba6e1d92c"}
 
-{'__name__': '__root__', '__table__': {'id': '01', 'name': 'Jeff'}, '__id__': '5249f69db1e9a8a009e43f27596eacca', '__parent_id__': None}
+{"__name__": "department", "__table__": {"name": "Strategic Hazard Intervention Espionage Logistics Directorate"}, "__id__": "1cd7de4b25fe5c1e134c5d3d43e2ec39", "__parent_id__": "f2198883d8412e528c0d0128ea2998d6"}
+
+{"__name__": "__root__", "__table__": {"id": "01", "name": "Jeff"}, "__id__": "f2198883d8412e528c0d0128ea2998d6", "__parent_id__": None}
+
 ```
 
 The `__name__` is name of the JSON property which can be used as a table name.  The `__table__` contains the primitive types that can be applied to something like a SQL table or [Delta Lake Table](https://delta.io/).  The `__parent_id__` is the `__id__` of the parent property or can be thought of as the `Foreign Key`.
