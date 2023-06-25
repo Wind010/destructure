@@ -1,0 +1,75 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0
+    hooks:
+    -   id: check-merge-conflict
+    -   id: debug-statements
+    -   id: name-tests-test
+    -   id: detect-private-key
+        exclude: ^NET_core/DeliveryFunction/DeliveryFunction/.*
+    # -   id: trailing-whitespace
+    # -   id: end-of-file-fixer
+    # -   id: check-yaml
+    # -   id: check-added-large-files
+    # -   id: detect-aws-credentials
+
+# -   repo: https://github.com/ambv/black
+#     rev: 22.1.0
+#     hooks:
+#     -   id: black
+#         args: [--diff, --check]
+
+# -   repo: https://github.com/asottile/pyupgrade
+#     rev: v1.25.0
+#     hooks:
+#     -   id: pyupgrade
+#         args: [--py36-plus]
+
+# TODO PySnyk
+
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.4.0'  # Use the sha / tag you want to point at
+    hooks:
+    -   id: mypy
+        # Pre-commit runs mypy from an isolated virtualenv so it won't have access to those so we need to override:
+        args: [--namespace-packages, --no-site-packages, --no-strict-optional, --ignore-missing-imports]
+        files: ^src/
+        types: [python]
+        always_run: true #
+
+-   repo: https://github.com/yunojuno/pre-commit-xenon
+    rev: v0.1
+    description: pre-commit plugin for Radon (cyclomatic complexity and other analysis check).
+    hooks:
+    -   id: xenon
+        #args: ["--max-average=A", "--max-modules=C", "--max-absolute=C"] # Uncomment/tweak after fixing
+        args: ["--max-average=F", "--max-modules=F", "--max-absolute=F"]
+
+-   repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
+    rev: 'v1.0.5'
+    hooks:
+    -   id: python-bandit-vulnerability-check
+        #args: [--ini, .banditrc, -ll, --skip, "B321,B402", --recursive, python/rfa] #--verbose
+         # Fix/Suppress B301,B303 then uncomment above.
+        args: [--ini, .banditrc, -ll, --skip, "B321,B402,B608,B301,B303", --recursive, python/rfa]
+        types: [python]
+        files: .py$
+
+# -   repo: local
+#     hooks:
+#     -   id: pytest
+#         name: pytest
+#         entry: pytest -v -p no:warnings
+#         # args: [python/rfa, -v, -p, no:warnings]
+#         language: system
+#         files: ^rfa/
+#         types: [python]
+#         always_run: true
+#         pass_filenames: false
+#     -   id: mypy
+#         name: mypy
+#         entry: mypy . --no-site-packages --namespace-packages 
+#         language: system
+#         pass_filenames: false
